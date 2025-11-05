@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLAME - Enterprise Software Supply Chain Security</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #0066CC;
+            --dark-blue: #003D7A;
+            --accent-blue: #4A90E2;
+            --light-gray: #F5F7FA;
+            --medium-gray: #E1E8ED;
+            --dark-gray: #2C3E50;
+            --text-dark: #1A1A1A;
+            --text-light: #5A6C7D;
+            --success-green: #28A745;
+            --white: #FFFFFF;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            background: var(--white);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        header {
+            background: var(--white);
+            border-bottom: 1px solid var(--medium-gray);
+            padding: 20px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary-blue);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-blue);
+        }
+
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
+            color: var(--white);
+            padding: 120px 20px 100px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            letter-spacing: -0.5px;
+        }
+
+        .hero .tagline {
+            font-size: 24px;
+            margin-bottom: 32px;
+            opacity: 0.95;
+            font-weight: 400;
+        }
+
+        .hero .subtitle {
+            font-size: 18px;
+            max-width: 800px;
+            margin: 0 auto 48px;
+            line-height: 1.8;
+            opacity: 0.9;
+        }
+
+        /* Protocol Version Badge */
+        .protocol-badge {
+            display: inline-block;
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 24px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 32px;
+            backdrop-filter: blur(10px);
+        }
+
+        /* CTA Buttons */
+        .cta-container {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-button {
+            padding: 14px 32px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            border: 2px solid;
+        }
+
+        .cta-primary {
+            background: var(--white);
+            color: var(--primary-blue);
+            border-color: var(--white);
+        }
+
+        .cta-primary:hover {
+            background: transparent;
+            color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .cta-secondary {
+            background: transparent;
+            color: var(--white);
+            border-color: var(--white);
+        }
+
+        .cta-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Stats Section */
+        .stats-section {
+            padding: 80px 20px;
+            background: var(--light-gray);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 32px;
+            margin-top: 48px;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 40px 24px;
+            background: var(--white);
+            border: 1px solid var(--medium-gray);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary-blue);
+        }
+
+        .stat-number {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 16px;
+            color: var(--text-dark);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .stat-desc {
+            font-size: 14px;
+            color: var(--text-light);
+            line-height: 1.5;
+        }
+
+        /* Tech Stack Section */
+        .tech-section {
+            padding: 80px 20px;
+            background: var(--white);
+        }
+
+        .section-title {
+            font-size: 40px;
+            text-align: center;
+            margin-bottom: 16px;
+            color: var(--text-dark);
+            font-weight: 700;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-light);
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto 48px;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-top: 48px;
+        }
+
+        .tech-card {
+            padding: 32px;
+            background: var(--white);
+            border: 1px solid var(--medium-gray);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .tech-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            border-color: var(--accent-blue);
+        }
+
+        .tech-icon {
+            font-size: 40px;
+            margin-bottom: 16px;
+        }
+
+        .tech-title {
+            font-size: 20px;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .tech-algo {
+            font-size: 14px;
+            color: var(--primary-blue);
+            font-family: 'Courier New', monospace;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .tech-desc {
+            color: var(--text-light);
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        .tech-security {
+            margin-top: 16px;
+            padding: 12px;
+            background: rgba(40, 167, 69, 0.08);
+            border-left: 3px solid var(--success-green);
+            color: var(--text-dark);
+            font-size: 13px;
+        }
+
+        /* Architecture Section */
+        .architecture-section {
+            padding: 80px 20px;
+            background: var(--light-gray);
+        }
+
+        .architecture-diagram {
+            max-width: 1000px;
+            margin: 48px auto;
+            padding: 48px;
+            background: var(--white);
+            border: 1px solid var(--medium-gray);
+            border-radius: 8px;
+        }
+
+        .arch-layer {
+            padding: 24px;
+            margin: 20px 0;
+            background: var(--light-gray);
+            border-left: 4px solid;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .arch-layer:hover {
+            transform: translateX(8px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .layer-genesis { border-color: var(--success-green); }
+        .layer-crypto { border-color: var(--primary-blue); }
+        .layer-qr { border-color: var(--accent-blue); }
+        .layer-k8s { border-color: var(--dark-blue); }
+
+        .arch-layer-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--text-dark);
+        }
+
+        .arch-layer-desc {
+            color: var(--text-light);
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        .arch-formula {
+            font-family: 'Courier New', monospace;
+            background: var(--white);
+            padding: 16px;
+            border-radius: 4px;
+            margin-top: 16px;
+            color: var(--text-dark);
+            font-size: 14px;
+            overflow-x: auto;
+            border: 1px solid var(--medium-gray);
+        }
+
+        /* Use Cases */
+        .use-cases-section {
+            padding: 80px 20px;
+            background: var(--white);
+        }
+
+        .use-case-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 24px;
+            margin-top: 48px;
+        }
+
+        .use-case-card {
+            padding: 32px;
+            background: var(--white);
+            border: 1px solid var(--medium-gray);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .use-case-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary-blue);
+        }
+
+        .use-case-emoji {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .use-case-title {
+            font-size: 22px;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .use-case-desc {
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-size: 15px;
+        }
+
+        .use-case-features {
+            list-style: none;
+            margin-top: 16px;
+        }
+
+        .use-case-features li {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--medium-gray);
+            color: var(--text-dark);
+            font-size: 14px;
+        }
+
+        .use-case-features li:last-child {
+            border-bottom: none;
+        }
+
+        .use-case-features li::before {
+            content: '✓ ';
+            margin-right: 8px;
+            color: var(--success-green);
+            font-weight: bold;
+        }
+
+        /* Genesis Timeline */
+        .timeline-section {
+            padding: 80px 20px;
+            background: var(--light-gray);
+        }
+
+        .timeline {
+            max-width: 1000px;
+            margin: 48px auto;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: var(--medium-gray);
+        }
+
+        .timeline-item {
+            display: flex;
+            margin: 48px 0;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) {
+            flex-direction: row;
+        }
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            flex: 1;
+            padding: 24px;
+            background: var(--white);
+            border: 1px solid var(--medium-gray);
+            border-radius: 8px;
+            margin: 0 32px;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary-blue);
+        }
+
+        .timeline-epoch {
+            font-size: 28px;
+            color: var(--primary-blue);
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .timeline-title {
+            font-size: 20px;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .timeline-desc {
+            color: var(--text-light);
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 16px;
+            height: 16px;
+            background: var(--primary-blue);
+            border: 3px solid var(--white);
+            border-radius: 50%;
+            box-shadow: 0 0 0 2px var(--primary-blue);
+        }
+
+        /* Live Demo Section */
+        .demo-section {
+            padding: 80px 20px;
+            background: var(--white);
+        }
+
+        .demo-terminal {
+            max-width: 1000px;
+            margin: 48px auto;
+            background: #1E1E1E;
+            border: 1px solid var(--medium-gray);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .terminal-header {
+            background: #2D2D2D;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid #3D3D3D;
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot-red { background: #FF5F56; }
+        .dot-yellow { background: #FFBD2E; }
+        .dot-green { background: #27C93F; }
+
+        .terminal-title {
+            margin-left: 16px;
+            color: #999;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+        }
+
+        .terminal-body {
+            padding: 24px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #D4D4D4;
+            overflow-x: auto;
+        }
+
+        .terminal-prompt {
+            color: #4EC9B0;
+        }
+
+        .terminal-command {
+            color: #9CDCFE;
+        }
+
+        .terminal-output {
+            color: #CE9178;
+            margin: 8px 0;
+        }
+
+        .terminal-success {
+            color: #4EC9B0;
+            font-weight: normal;
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 20px 32px;
+            background: var(--dark-gray);
+            color: var(--white);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            color: var(--white);
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            margin: 12px 0;
+        }
+
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 14px;
+        }
+
+        .footer-section a:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 32px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 14px;
+        }
+
+        .footer-bottom p {
+            margin: 8px 0;
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            display: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 48px; }
+            .hero .tagline { font-size: 18px; }
+            .flame-logo { font-size: 80px; }
+            .section-title { font-size: 36px; }
+            .cta-container { flex-direction: column; }
+            .timeline::before { left: 30px; }
+            .timeline-item:nth-child(even) { flex-direction: row; }
+            .timeline-content { margin: 0 0 0 60px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <a href="#" class="logo">FLAME</a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#tech">Technology</a></li>
+                    <li><a href="#architecture">Architecture</a></li>
+                    <li><a href="#demo">Demo</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Enterprise Software Supply Chain Security</h1>
+            <p class="tagline">Post-Quantum Cryptographic Protection for Mission-Critical Systems</p>
+            <div class="protocol-badge">
+                Version 13.1.1 | NIST Compliant | Production Ready
+            </div>
+            <p class="subtitle">
+                Industry-leading software integrity verification system with quantum-resistant cryptography.
+                Ensure deterministic builds, immutable audit trails, and constitutional security guarantees for your enterprise infrastructure.
+            </p>
+            <div class="cta-container">
+                <a href="#tech" class="cta-button cta-primary">Learn More</a>
+                <a href="#demo" class="cta-button cta-secondary">View Documentation</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <h2 class="section-title">Enterprise-Grade Security</h2>
+            <p class="section-subtitle">Built on industry standards and proven cryptographic protocols</p>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">2¹²⁸</div>
+                    <div class="stat-label">Quantum Resistance</div>
+                    <p class="stat-desc">NIST FIPS 205 SPHINCS+ signatures</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Deterministic Builds</div>
+                    <p class="stat-desc">Bit-identical reproducible artifacts</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">32</div>
+                    <div class="stat-label">Byte Integrity</div>
+                    <p class="stat-desc">Full BLAKE3 cryptographic checksums</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">256</div>
+                    <div class="stat-label">Bit Security</div>
+                    <p class="stat-desc">SHA3-512 collision resistance</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Stack Section -->
+    <section class="tech-section" id="tech">
+        <div class="container">
+            <h2 class="section-title">Cryptographic Foundation</h2>
+            <p class="section-subtitle">Standards-based security protocols designed for long-term resilience</p>
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <div class="tech-icon">🔐</div>
+                    <h3 class="tech-title">Primary Hash Function</h3>
+                    <div class="tech-algo">SHA3-512</div>
+                    <p class="tech-desc">
+                        NIST FIPS 202 Keccak-based cryptographic hash function providing 
+                        512-bit output with 256-bit collision resistance. Industry standard 
+                        for cryptographic signing and verification workflows.
+                    </p>
+                    <div class="tech-security">
+                        256-bit collision resistance | Quantum-safe design
+                    </div>
+                </div>
+
+                <div class="tech-card">
+                    <div class="tech-icon">⚡</div>
+                    <h3 class="tech-title">Performance Hash</h3>
+                    <div class="tech-algo">BLAKE3</div>
+                    <p class="tech-desc">
+                        Modern tree-based cryptographic hash with hardware acceleration support. 
+                        Version 13.1.1 implements full 32-byte output for enhanced integrity verification 
+                        across distributed systems and rolling hash chains.
+                    </p>
+                    <div class="tech-security">
+                        128-bit collision resistance | Optimized throughput
+                    </div>
+                </div>
+
+                <div class="tech-card">
+                    <div class="tech-icon">🛡️</div>
+                    <h3 class="tech-title">Post-Quantum Signature</h3>
+                    <div class="tech-algo">SPHINCS+ SHAKE128s</div>
+                    <p class="tech-desc">
+                        NIST FIPS 205 approved stateless hash-based signature scheme providing 
+                        protection against quantum computing threats. 17,088-byte signatures ensure 
+                        long-term security guarantees for critical infrastructure.
+                    </p>
+                    <div class="tech-security">
+                        128-bit quantum resistance | NIST PQC Category 1
+                    </div>
+                </div>
+
+                <div class="tech-card">
+                    <div class="tech-icon">✍️</div>
+                    <h3 class="tech-title">Classical Signature</h3>
+                    <div class="tech-algo">Ed25519</div>
+                    <p class="tech-desc">
+                        RFC 8032 EdDSA signature scheme on Curve25519. Provides fast-fail 
+                        verification in hybrid signature workflows. 64-byte signatures deliver 
+                        efficient classical security with high-performance characteristics.
+                    </p>
+                    <div class="tech-security">
+                        128-bit classical security | High-speed verification
+                    </div>
+                </div>
+
+                <div class="tech-card">
+                    <div class="tech-icon">🔑</div>
+                    <h3 class="tech-title">Key Derivation</h3>
+                    <div class="tech-algo">Argon2id</div>
+                    <p class="tech-desc">
+                        RFC 9106 memory-hard key derivation function with deterministic parameters. 
+                        Fixed configuration: 128 MiB memory, 4 iterations, single-threaded execution 
+                        ensures reproducible builds across all environments.
+                    </p>
+                    <div class="tech-security">
+                        Industry-leading password hashing | Deterministic output
+                    </div>
+                </div>
+
+                <div class="tech-card">
+                    <div class="tech-icon">📱</div>
+                    <h3 class="tech-title">QR Code Protocol</h3>
+                    <div class="tech-algo">488-byte chunks</div>
+                    <p class="tech-desc">
+                        Version 30 QR code implementation with comprehensive integrity verification. 
+                        Each chunk includes: 1 byte version, 7 bytes reserved, 32 bytes BLAKE3 checksum, 
+                        and 448 bytes payload data for reliable encoding.
+                    </p>
+                    <div class="tech-security">
+                        Full 32-byte checksums | Error correction enabled
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Architecture Section -->
+    <section class="architecture-section" id="architecture">
+        <div class="container">
+            <h2 class="section-title">System Architecture</h2>
+            <p class="section-subtitle">Multi-layered security framework for complete supply chain integrity</p>
+            <div class="architecture-diagram">
+                <div class="arch-layer layer-genesis">
+                    <h3 class="arch-layer-title">Layer 1: Cryptographic Anchor (A₁₃)</h3>
+                    <p class="arch-layer-desc">
+                        Each deployment binds to an immutable cryptographic root through verifiable proof chains.
+                        The anchor calculation ensures traceable lineage from initial deployment.
+                    </p>
+                    <div class="arch-formula">
+                        A₁₃ = BLAKE3(G₀ ‖ R₁₃)
+                        <br>where:
+                        <br>  G₀  = Deployment root hash
+                        <br>  R₁₃ = SHA3-512(CBOR-bundle-v13)
+                        <br>  A₁₃ = 32-byte cryptographic anchor
+                    </div>
+                </div>
+
+                <div class="arch-layer layer-crypto">
+                    <h3 class="arch-layer-title">Layer 2: Hybrid Signature Verification</h3>
+                    <p class="arch-layer-desc">
+                        Dual-signature protocol combines classical and post-quantum cryptography.
+                        Both Ed25519 and SPHINCS+ must verify successfully for system admission.
+                    </p>
+                    <div class="arch-formula">
+                        Verify(msg) = Ed25519.Verify(msg) ∧ SPHINCS.Verify(msg)
+                        <br>
+                        <br>Fast-fail: Ed25519 verification (microseconds)
+                        <br>Deep verify: SPHINCS+ validation (milliseconds)
+                    </div>
+                </div>
+
+                <div class="arch-layer layer-qr">
+                    <h3 class="arch-layer-title">Layer 3: QR Code Integrity Protocol</h3>
+                    <p class="arch-layer-desc">
+                        Large artifacts are segmented into QR-encodable chunks with comprehensive verification.
+                        Version 13.1.1 implements full 32-byte BLAKE3 checksums for maximum integrity assurance.
+                    </p>
+                    <div class="arch-formula">
+                        Chunk = [version:1][reserved:7][BLAKE3:32][payload:448]
+                        <br>Total = 488 bytes per chunk
+                        <br>
+                        <br>Integrity: BLAKE3(payload) == stored_checksum
+                    </div>
+                </div>
+
+                <div class="arch-layer layer-k8s">
+                    <h3 class="arch-layer-title">Layer 4: Kubernetes Admission Control</h3>
+                    <p class="arch-layer-desc">
+                        ValidatingWebhook enforces security policy at pod admission.
+                        Container images must prove cryptographic lineage and carry valid hybrid signatures.
+                    </p>
+                    <div class="arch-formula">
+                        Admission Flow:
+                        <br>1. Extract cryptographic anchor from annotations
+                        <br>2. Verify A₁₃ = BLAKE3(G₀ ‖ computed_R₁₃)
+                        <br>3. Verify Ed25519 signature (fast-fail)
+                        <br>4. Verify SPHINCS+ signature (quantum-safe)
+                        <br>5. Admit or reject based on verification
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section class="use-cases-section">
+        <div class="container">
+            <h2 class="section-title">Enterprise Applications</h2>
+            <p class="section-subtitle">Proven solutions across regulated industries and critical infrastructure</p>
+            <div class="use-case-grid">
+                <div class="use-case-card">
+                    <div class="use-case-emoji">🏦</div>
+                    <h3 class="use-case-title">Financial Services</h3>
+                    <p class="use-case-desc">
+                        Banks and financial institutions protecting against emerging quantum threats.
+                        Comprehensive security guarantees for transaction processors, settlement systems, and risk management platforms.
+                    </p>
+                    <ul class="use-case-features">
+                        <li>Post-quantum payment gateways</li>
+                        <li>Immutable audit trails</li>
+                        <li>Regulatory compliance framework</li>
+                        <li>Zero-trust architecture</li>
+                    </ul>
+                </div>
+
+                <div class="use-case-card">
+                    <div class="use-case-emoji">🛡️</div>
+                    <h3 class="use-case-title">Defense & Government</h3>
+                    <p class="use-case-desc">
+                        National security applications requiring maximum assurance levels.
+                        Complete software supply chain tracking from development through deployment with cryptographic verification.
+                    </p>
+                    <ul class="use-case-features">
+                        <li>Classified system integrity</li>
+                        <li>Supply chain security</li>
+                        <li>Insider threat mitigation</li>
+                        <li>Quantum-resistant communications</li>
+                    </ul>
+                </div>
+
+                <div class="use-case-card">
+                    <div class="use-case-emoji">🏥</div>
+                    <h3 class="use-case-title">Healthcare & Life Sciences</h3>
+                    <p class="use-case-desc">
+                        Medical devices and patient data systems with unbreakable integrity guarantees.
+                        FDA compliance through deterministic builds and post-quantum signature verification.
+                    </p>
+                    <ul class="use-case-features">
+                        <li>Medical device verification</li>
+                        <li>Patient data integrity</li>
+                        <li>Clinical trial provenance</li>
+                        <li>Pharmaceutical supply chain</li>
+                    </ul>
+                </div>
+
+                <div class="use-case-card">
+                    <div class="use-case-emoji">🔌</div>
+                    <h3 class="use-case-title">Critical Infrastructure</h3>
+                    <p class="use-case-desc">
+                        Power grids, water systems, and transportation networks protected by defense-grade security.
+                        Mission-critical operations require absolute certainty in software integrity.
+                    </p>
+                    <ul class="use-case-features">
+                        <li>SCADA system protection</li>
+                        <li>Smart grid security</li>
+                        <li>Aviation safety systems</li>
+                        <li>Nuclear facility controls</li>
+                    </ul>
+                </div>
+
+                <div class="use-case-card">
+                    <div class="use-case-emoji">⚖️</div>
+                    <h3 class="use-case-title">Legal & Compliance</h3>
+                    <p class="use-case-desc">
+                        Court-admissible evidence of software integrity for legal proceedings.
+                        Deterministic builds create verifiable audit trails that withstand legal scrutiny.
+                    </p>
+                    <ul class="use-case-features">
+                        <li>Digital evidence integrity</li>
+                        <li>Contract enforcement</li>
+                        <li>Intellectual property protection</li>
+                        <li>Regulatory audit support</li>
+                    </ul>
+                </div>
+
+                <div class="use-case-card">
+                    <div class="use-case-emoji">🌐</div>
+                    <h3 class="use-case-title">Open Source Projects</h3>
+                    <p class="use-case-desc">
+                        Community-driven software with enterprise-grade security guarantees.
+                        Cryptographic proof of build integrity without centralized trust requirements.
+                    </p>
+                    <ul class="use-case-features">
+                        <li>Reproducible package builds</li>
+                        <li>Supply chain transparency</li>
+                        <li>Contributor verification</li>
+                        <li>Release integrity validation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline -->
+    <section class="timeline-section">
+        <div class="container">
+            <h2 class="section-title">Development History</h2>
+            <p class="section-subtitle">Key milestones in building enterprise-grade security</p>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-epoch">Phase 1</div>
+                        <h3 class="timeline-title">Foundation Architecture</h3>
+                        <p class="timeline-desc">
+                            Initial system design addressing software supply chain security challenges.
+                            Established core principles of deterministic builds and cryptographic verification. 
+                            SHA3-512 adopted as primary hash function.
+                        </p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-epoch">Phase 2</div>
+                        <h3 class="timeline-title">Post-Quantum Integration</h3>
+                        <p class="timeline-desc">
+                            NIST announces post-quantum cryptography standards. Integration of SPHINCS+ 
+                            as mandatory signature scheme. Hybrid signature verification protocol established 
+                            combining classical and quantum-resistant algorithms.
+                        </p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-epoch">Phase 3</div>
+                        <h3 class="timeline-title">Cryptographic Anchor Protocol</h3>
+                        <p class="timeline-desc">
+                            Deployment of cryptographic anchor system for artifact lineage tracking.
+                            Every artifact now traces provenance to deployment root through verifiable chain. 
+                            Anchor calculation: A₁₃ = BLAKE3(G₀ ‖ R₁₃).
+                        </p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-epoch">v13.1.1</div>
+                        <h3 class="timeline-title">Enhanced Integrity Verification</h3>
+                        <p class="timeline-desc">
+                            QR code protocol upgraded from 8-byte to full 32-byte BLAKE3 checksums.
+                            Collision resistance increased by 2⁹⁶×. Complete alignment with security standards 
+                            and enterprise requirements.
+                        </p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-epoch">Current</div>
+                        <h3 class="timeline-title">Production Deployment</h3>
+                        <p class="timeline-desc">
+                            FLAME security framework deployed in enterprise environments. Comprehensive 
+                            verification of all signatures and cryptographic proofs. Industry-leading 
+                            implementation of software supply chain security standards.
+                        </p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Live Demo Section -->
+    <section class="demo-section" id="demo">
+        <div class="container">
+            <h2 class="section-title">Implementation Example</h2>
+            <p class="section-subtitle">Command-line tools for cryptographic verification and build certification</p>
+            <div class="demo-terminal">
+                <div class="terminal-header">
+                    <span class="terminal-dot dot-red"></span>
+                    <span class="terminal-dot dot-yellow"></span>
+                    <span class="terminal-dot dot-green"></span>
+                    <span class="terminal-title">flame-cli v13.1.1</span>
+                </div>
+                <div class="terminal-body">
+<span class="terminal-prompt">$</span> <span class="terminal-command">cargo build --release</span>
+<span class="terminal-output">   Compiling flame-core v13.1.1
+   Finished release [optimized] target(s) in 34.21s</span>
+
+<span class="terminal-prompt">$</span> <span class="terminal-command">flame-cli annotate myapp.tar --output annotation.json</span>
+<span class="terminal-output">FLAME v13.1.1 Annotation Generator
+Reading artifact: myapp.tar (23.4 MB)
+Computing SHA3-512 digest...
+Computing BLAKE3 auxiliary hash...
+Deriving keys with Argon2id...
+Generating Ed25519 signature...
+Generating SPHINCS+ signature...</span>
+
+<span class="terminal-success">Annotation complete
+
+Digests:
+  SHA3-512:  f4d2e3a1b5c6d7e8f9a0b1c2d3e4f5a6...
+  BLAKE3:    a7f3b2c1d8e9f4a5b6c7d8e9f0a1b2c3...
+
+Signatures:
+  Ed25519:   64 bytes
+  SPHINCS+:  17,088 bytes
+
+Anchor:
+  A₁₃:       a7f3b2c1d8e9f4a5b6c7d8e9f0a1b2c3...
+
+Output: annotation.json (17.3 KB)</span>
+
+<span class="terminal-prompt">$</span> <span class="terminal-command">bash scripts/certification.sh</span>
+<span class="terminal-output">FLAME v13.1.1 Deterministic Build Certification
+
+Build #1...
+  Compiled successfully
+  SHA3-512: f4d2e3a1b5c6d7e8f9a0b1c2d3e4f5a6...
+  BLAKE3:   a7f3b2c1d8e9f4a5b6c7d8e9f0a1b2c3...
+
+Build #2...
+  Compiled successfully
+  SHA3-512: f4d2e3a1b5c6d7e8f9a0b1c2d3e4f5a6...
+  BLAKE3:   a7f3b2c1d8e9f4a5b6c7d8e9f0a1b2c3...</span>
+
+<span class="terminal-success">═══════════════════════════════════════
+CERTIFICATION PASSED
+Builds are bit-identical across compilations
+Compliance verified
+═══════════════════════════════════════</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Documentation</h3>
+                    <ul>
+                        <li><a href="#tech">Technical Specifications</a></li>
+                        <li><a href="#architecture">Architecture Guide</a></li>
+                        <li><a href="#">Security Guarantees</a></li>
+                        <li><a href="#">API Reference</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="#">GitHub Repository</a></li>
+                        <li><a href="#">Getting Started</a></li>
+                        <li><a href="#">Migration Guide</a></li>
+                        <li><a href="#">Best Practices</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Community</h3>
+                    <ul>
+                        <li><a href="#">Discussion Forum</a></li>
+                        <li><a href="#">Security Reports</a></li>
+                        <li><a href="#">Contributing</a></li>
+                        <li><a href="#">Support</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="#">MIT License</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Security Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 FLAME Security Framework. All rights reserved.</p>
+                <p>Built with standards-based cryptography. Powered by NIST-approved post-quantum algorithms.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
